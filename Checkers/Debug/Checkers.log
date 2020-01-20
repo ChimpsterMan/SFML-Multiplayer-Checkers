@@ -1,0 +1,4 @@
+﻿  Main.cpp
+C:\Users\chimp\source\repos\Checkers\Checkers\Main.cpp(35,47): warning C4018: '<': signed/unsigned mismatch
+C:\Users\chimp\source\repos\Checkers\Checkers\Main.cpp(35,79): warning C4018: '<': signed/unsigned mismatch
+  Checkers.vcxproj -> C:\Users\chimp\source\repos\Checkers\Debug\Checkers.exe
