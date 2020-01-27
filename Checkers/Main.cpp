@@ -4,6 +4,8 @@
 #include "Piece.h"
 #include "Board.h"
 
+#include <Windows.h>
+
 using namespace std;
 
 const int WIDTH = 600;
@@ -19,6 +21,26 @@ Piece selectedPiece;
 
 void message(string str) {
 	//eh check flappy for code
+}
+
+bool checkKillingMoves(Board board, Piece piece) {
+	Piece p[4][2];
+	p[0][0] = board.get(sf::Vector2i((piece.x - 2), (piece.y - 2)));
+	p[0][1] = board.get(sf::Vector2i((piece.x - 2 + piece.x) / 2, (piece.y - 2 + piece.y) / 2));
+	p[1][0] = board.get(sf::Vector2i((piece.x + 2), (piece.y - 2)));
+	p[1][1] = board.get(sf::Vector2i((piece.x + 2 + piece.x) / 2, (piece.y - 2 + piece.y) / 2));
+	p[2][0] = board.get(sf::Vector2i((piece.x + 2), (piece.y + 2)));
+	p[2][1] = board.get(sf::Vector2i((piece.x + 2 + piece.x) / 2, (piece.y + 2 + piece.y) / 2));
+	p[3][0] = board.get(sf::Vector2i((piece.x - 2), (piece.y + 2)));
+	p[3][1] = board.get(sf::Vector2i((piece.x - 2 + piece.x) / 2, (piece.y + 2 + piece.y) / 2));
+	//test if the piece selected and tg\he piece inbetween qualify taking a piece
+
+	for (int i = 0; i < 4; i++) {
+		if (p[i][1].color != piece.color && p[i][0].color != Piece::Color::UNDEFINED && p[i][0].color == Piece::Color::UNDEFINED) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void move(Piece::Color color) {
@@ -80,7 +102,13 @@ void move(Piece::Color color) {
 					board.remove(p);
 
 					cout << "Placed Piece at: " << mouse.x << " " << mouse.y << endl;
-					turn = (turn + 1) % 2;
+
+					if (checkKillingMoves(board, Piece(color, mouse.x, mouse.y))) {
+
+					}
+					else {
+						turn = (turn + 1) % 2;
+					}
 				}
 			}
 		}
@@ -116,6 +144,8 @@ void setup() {
 }
 
 int main() {
+	//ShowWindow(GetConsoleWindow(), SW_RESTORE);
+
 	window.create(sf::VideoMode(WIDTH, HEIGHT), "Checkers");
 	window.setFramerateLimit(FPS);
 

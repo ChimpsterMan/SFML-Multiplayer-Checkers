@@ -1,7 +1,9 @@
 ﻿  Main.cpp
+C:\Users\chimp\source\repos\Checkers\Checkers\Main.cpp(57,47): warning C4018: '<': signed/unsigned mismatch
+C:\Users\chimp\source\repos\Checkers\Checkers\Main.cpp(57,79): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  1 of 20 functions ( 5.0%) were compiled, the rest were copied from previous compilation.
+  2 of 223 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Checkers.vcxproj -> C:\Users\chimp\source\repos\Checkers\Release\Checkers.exe
