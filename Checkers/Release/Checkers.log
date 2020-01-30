@@ -1,6 +1,6 @@
 ﻿  Main.cpp
-C:\Users\chimp\source\repos\Checkers\Checkers\Main.cpp(57,47): warning C4018: '<': signed/unsigned mismatch
-C:\Users\chimp\source\repos\Checkers\Checkers\Main.cpp(57,79): warning C4018: '<': signed/unsigned mismatch
+C:\Users\chimp\source\repos\Checkers\Checkers\Main.cpp(66,47): warning C4018: '<': signed/unsigned mismatch
+C:\Users\chimp\source\repos\Checkers\Checkers\Main.cpp(66,79): warning C4018: '<': signed/unsigned mismatch
   Generating code
   2 of 223 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

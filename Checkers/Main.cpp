@@ -20,7 +20,16 @@ int turn;
 Piece selectedPiece;
 
 void message(string str) {
-	//eh check flappy for code
+	sf::Font font;
+	if (!font.loadFromFile("arial.ttf")) {
+
+	}
+	sf::Text scr = sf::Text(str, font, 50);
+	scr.setFillColor(sf::Color::Blue);
+    scr.setOrigin((scr.getGlobalBounds().width / 2), 0 * (scr.getGlobalBounds().height / 2));
+	scr.setPosition(WIDTH / 2, HEIGHT / 20);
+
+	window.draw(scr);
 }
 
 bool checkKillingMoves(Board board, Piece piece) {
@@ -160,12 +169,12 @@ int main() {
 			}
 		}
 
+		window.clear();
+
 		gameManager();
 
-		window.clear();
 		board.draw();
 		window.display();
-
 	}
 
 	return 0;
