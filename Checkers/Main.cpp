@@ -19,6 +19,9 @@ Board board = Board(window);
 int turn;
 Piece selectedPiece;
 
+//prototyped functions
+void setup();
+
 void message(string str) {
 	//cout << str << endl;
 
@@ -32,6 +35,20 @@ void message(string str) {
 	scr.setPosition(WIDTH / 2, HEIGHT / 20);
 
 	window.draw(scr);
+}
+
+//goes by color of piece
+bool checkLoss(Piece::Color color) {
+	for (int y = 0; y < board.getHeight(); y++) {
+		for (int x = 0; x < board.getWidth(); x++) {
+			Piece b = board.get(sf::Vector2i(x, y));
+			if (b.color == color) {
+				return false;
+			}
+		}
+	}
+	cout << "game over" << endl;
+	return true;
 }
 
 //a method that itterates through selected piece and tests if there are any more moves it can make where it kills the opposite team
@@ -122,7 +139,7 @@ void move(Piece::Color color) {
 
 					cout << "Placed Piece at: " << mouse.x << " " << mouse.y << endl;
 
-					if (checkLoss) {
+					if (checkLoss(p.color)) {
 						setup();
 					}
 					else {
@@ -132,20 +149,6 @@ void move(Piece::Color color) {
 			}
 		}
 	}
-}
-
-//goes by color of piece
-bool checkLoss(Piece::Color color) {
-	for (int y = 0; y < board.getHeight(); y++) {
-		for (int x = 0; x < board.getWidth(); x++) {
-			Piece b = board.get(sf::Vector2i(x, y));
-			if (b.color == color) {
-				return false;
-			}
-		}
-	}
-	cout << "game over" << endl;
-	return true;
 }
 
 void gameManager() {
