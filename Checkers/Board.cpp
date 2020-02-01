@@ -71,6 +71,7 @@ void Board::printBoard() {
 
 void Board::draw()
 {
+	//draw the board squares alterative checkered pattern
 	for (int y = 0; y < HEIGHT; y++) {
 		for (int x = 0; x < WIDTH; x++) {
 			sf::RectangleShape rect = sf::RectangleShape(sf::Vector2f(window->getSize().x / WIDTH, window->getSize().y / HEIGHT));

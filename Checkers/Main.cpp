@@ -20,6 +20,8 @@ int turn;
 Piece selectedPiece;
 
 void message(string str) {
+	//cout << str << endl;
+
 	sf::Font font;
 	if (!font.loadFromFile("arial.ttf")) {
 
@@ -32,6 +34,7 @@ void message(string str) {
 	window.draw(scr);
 }
 
+//a method that itterates through selected piece and tests if there are any more moves it can make where it kills the opposite team
 bool checkKillingMoves(Board board, Piece piece) {
 	Piece p[4][2];
 	p[0][0] = board.get(sf::Vector2i((piece.x - 2), (piece.y - 2)));
@@ -52,7 +55,9 @@ bool checkKillingMoves(Board board, Piece piece) {
 	return false;
 }
 
+//the main method for controlling pieces
 void move(Piece::Color color) {
+	//ui with players
 	if (color == Piece::Color::RED) {
 		message("Red: Select a Red piece and then click where you want to move.");
 	}
@@ -60,9 +65,12 @@ void move(Piece::Color color) {
 		message("Black: Select a Black piece and then click where you want to move.");
 	}
 
+	//if a piece is selected with left mouse test conditions
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+		//set the mouse to its actual position
 		sf::Vector2i mouse = sf::Vector2i(event.mouseButton.x, event.mouseButton.y);
 
+		//get its coords on the 8x8 board
 		if (mouse.x >= 0 && mouse.y >= 0 && mouse.x < window.getSize().x && mouse.y < window.getSize().y) {
 			mouse = board.getCoords(mouse);
 		}
@@ -72,6 +80,7 @@ void move(Piece::Color color) {
 
 		Piece b = board.get(sf::Vector2i(mouse.x, mouse.y));
 
+		//if the piece is an active square where people can move
 		if (mouse.x % 2 == (mouse.y + 1) % 2) {
 			//select piece for movement
 			if (b.color == color) {
@@ -79,10 +88,11 @@ void move(Piece::Color color) {
 				cout << "Selected Piece at: " << b.x << " " << b.y << endl;
 			}
 
-			//normal movement
+			//normal movement to one piece over
 			if ((int) sqrt(pow(mouse.x - selectedPiece.x, 2) + pow(mouse.y - selectedPiece.y, 2)) <= 1 &&
 				(int)sqrt(pow(mouse.x - selectedPiece.x, 2) + pow(mouse.y - selectedPiece.y, 2)) > 0) {
 				
+				//if the space selected is undefined then move piece there and switch turn.
 				if (b.color == Piece::Color::UNDEFINED) {
 					board.remove(selectedPiece);
 					board.place(Piece(color, mouse.x, mouse.y));
@@ -112,8 +122,8 @@ void move(Piece::Color color) {
 
 					cout << "Placed Piece at: " << mouse.x << " " << mouse.y << endl;
 
-					if (checkKillingMoves(board, Piece(color, mouse.x, mouse.y))) {
-
+					if (checkLoss) {
+						setup();
 					}
 					else {
 						turn = (turn + 1) % 2;
@@ -128,12 +138,13 @@ void move(Piece::Color color) {
 bool checkLoss(Piece::Color color) {
 	for (int y = 0; y < board.getHeight(); y++) {
 		for (int x = 0; x < board.getWidth(); x++) {
-			Piece b = board.get(sf::Vector2i(y, x));
+			Piece b = board.get(sf::Vector2i(x, y));
 			if (b.color == color) {
 				return false;
 			}
 		}
 	}
+	cout << "game over" << endl;
 	return true;
 }
 
